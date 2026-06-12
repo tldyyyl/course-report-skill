@@ -27,11 +27,8 @@ main.pdf
 # Generated reports and temporary renders
 output/
 tmp/
-docs/superpowers/
 
-# Local reference templates are not runtime dependencies
-示例大学学位论文LaTeX模板/
-示例大学学位论文LaTeX模板.zip
+# Local school logos
 assets/template/pic/logo.pdf
 assets/template/pic/logo.png
 assets/template/pic/logo.jpg

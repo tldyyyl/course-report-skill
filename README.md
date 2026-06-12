@@ -32,8 +32,8 @@ Agent 会询问尚未提供的报告信息，确定学校官方英文名，优�
 
 ```bash
 python scripts/create_report.py \
-  --school "XX大学" \
-  --school-en "University of Electronic Science and Technology of China" \
+  --school "示例大学" \
+  --school-en "Example University" \
   --course "机器学习" \
   --title "基于CNN的图像分类研究" \
   --author "张三" \
@@ -199,7 +199,6 @@ course-report-skill/
 │       ├── latexmkrc            # 编译配置
 │       ├── reference.bib        # 示例参考文献
 │       └── pic/                 # 图片目录
-└── references/                  # 参考材料
 ```
 
 ## 测试

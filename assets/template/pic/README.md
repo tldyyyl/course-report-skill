@@ -10,7 +10,7 @@
 2. 放在此目录下
 3. 在 `main.tex` 中取消注释 `\showlogo` 命令
 
-支持的图片格式：PDF、PNG、JPG、EPS
+支持的图片格式：PDF、PNG、JPG、JPEG。用于打印时优先使用 PDF 矢量图片。
 
 ## 其他图片
 

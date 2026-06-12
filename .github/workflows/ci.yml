@@ -52,13 +52,13 @@ jobs:
             --output "$RUNNER_TEMP/course-report" \
             --school "示例大学" \
             --school-en "Example University" \
-            --course "读书报告" \
-            --title "基于低秩-稀疏矩阵分解的动态 MRI 图像重建方法研究" \
+            --course "示例课程" \
+            --title "课程报告自动化编译测试" \
             --author "测试学生" \
             --student-id "202600000001" \
             --advisor "测试教师" \
-            --department "人工智能学院" \
-            --major "计算机科学与技术" \
+            --department "示例学院" \
+            --major "示例专业" \
             --date "2026年6月12日" \
             --compiler xelatex
           test -s "$RUNNER_TEMP/course-report/main.pdf"
