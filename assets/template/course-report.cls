@@ -40,14 +40,14 @@
 \newcommand{\setcoursefonts}[3]{
   \IfFontExistsTF{#1}
     {\setCJKmainfont[AutoFakeBold=true]{#1}}
-    {\setCJKmainfont[AutoFakeBold=true]{FandolSong-Regular}}
+    {\setCJKmainfont[AutoFakeBold=true]{FandolSong-Regular.otf}}
   \IfFontExistsTF{#2}
     {
       \newCJKfontfamily{\heiti}{#2}
       \newfontfamily{\heiti@letter}{#2}
     }
     {
-      \newCJKfontfamily{\heiti}{FandolHei-Regular}
+      \newCJKfontfamily{\heiti}{FandolHei-Regular.otf}
       \newfontfamily{\heiti@letter}{TeX Gyre Heros}
     }
   \IfFontExistsTF{#3}
@@ -59,16 +59,16 @@
   \setcoursefonts{SimSun}{SimHei}{Times New Roman}
   \IfFontExistsTF{FangSong}
     {\setCJKmonofont{FangSong}}
-    {\setCJKmonofont{FandolFang-Regular}}
+    {\setCJKmonofont{FandolFang-Regular.otf}}
 \else
 \ifmacosx
   \setcoursefonts{Songti SC}{Heiti SC}{Times New Roman}
   \IfFontExistsTF{STFangsong}
     {\setCJKmonofont{STFangsong}}
-    {\setCJKmonofont{FandolFang-Regular}}
+    {\setCJKmonofont{FandolFang-Regular.otf}}
 \else
-  \setcoursefonts{FandolSong-Regular}{FandolHei-Regular}{TeX Gyre Termes}
-  \setCJKmonofont{FandolFang-Regular}
+  \setcoursefonts{FandolSong-Regular.otf}{FandolHei-Regular.otf}{TeX Gyre Termes}
+  \setCJKmonofont{FandolFang-Regular.otf}
 \fi
 \fi
 

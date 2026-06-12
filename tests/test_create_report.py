@@ -431,6 +431,20 @@ class CreateReportTests(unittest.TestCase):
         self.assertNotIn(r"\cleardoublepage", transition)
         self.assertNotIn(r"\newpage", transition)
 
+    def test_fandol_fallback_uses_tex_live_font_files(self) -> None:
+        class_content = (
+            create_report.template_root() / "course-report.cls"
+        ).read_text(encoding="utf-8")
+
+        expected_fragments = (
+            r"\setCJKmainfont[AutoFakeBold=true]{FandolSong-Regular.otf}",
+            r"\newCJKfontfamily{\heiti}{FandolHei-Regular.otf}",
+            r"\setcoursefonts{FandolSong-Regular.otf}{FandolHei-Regular.otf}",
+            r"\setCJKmonofont{FandolFang-Regular.otf}",
+        )
+        for fragment in expected_fragments:
+            self.assertIn(fragment, class_content)
+
     def test_template_contains_clickable_cross_reference_examples(self) -> None:
         content = (create_report.template_root() / "main.tex").read_text(
             encoding="utf-8"
