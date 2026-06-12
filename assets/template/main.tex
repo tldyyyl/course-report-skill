@@ -1,0 +1,88 @@
+\documentclass[course]{course-report}
+
+% 封面信息 - 请根据实际情况修改
+\school{学校名称}{University Name}
+\course{课程名称}
+\title{课程报告题目}{Course Report Title}
+\author{学生姓名}{Student Name}
+\studentnumber{202600000000}
+\advisor{指导老师姓名}{Advisor Name}
+\department{学院名称}{Department Name}
+\major{专业名称}{Major Name}
+
+% 如果需要显示学校logo，请取消下面一行的注释
+% 并将logo文件放在 pic/logo.pdf
+% \showlogo
+
+\begin{document}
+
+\makecover
+
+\thesistableofcontents
+
+\chapter{引言}
+
+\section{研究背景}
+
+这里写课程报告的背景、问题来源和任务要求。课程报告通常不需要中英文摘要、原创性声明、插图目录、表格目录、符号表、致谢和成果清单。
+
+\section{报告结构}
+
+这里简要说明全文安排。本文后续章节演示公式、图表、交叉引用和参考文献的基本写法。
+
+\chapter{方法与实现}
+
+\section{基本方法}
+
+正文可以直接使用中文、英文和数学公式。设目标函数为
+\begin{equation}
+  \label{eq:objective}
+  J(\bm{x})=\sum_{i=1}^{n}(y_i-\bm{w}^{\mathrm{T}}\bm{x}_i)^2+\lambda\lVert\bm{w}\rVert_2^2 .
+\end{equation}
+式\ref{eq:objective}展示了一个带正则项的最小二乘目标。
+
+\section{图表示例}
+
+图\ref{fig:example}和表\ref{tab:example}展示了报告中常用的浮动体写法。
+
+\begin{figure}[h]
+  \centering
+  \fbox{\parbox{0.6\textwidth}{\centering\vspace{2cm}这里是图片占位符\vspace{2cm}}}
+  \caption{示例图片}
+  \label{fig:example}
+\end{figure}
+
+\begin{table}[h]
+  \caption{实验参数示例}
+  \label{tab:example}
+  \begin{tabular}{ccc}
+    \toprule
+    参数 & 取值 & 说明 \\
+    \midrule
+    $n$ & 100 & 样本数量 \\
+    $\lambda$ & 0.01 & 正则化系数 \\
+    迭代次数 & 50 & 最大迭代轮数 \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+\chapter{结果与分析}
+
+\section{实验结果}
+
+这里描述实验设置、数据来源和主要结果。引用文献时可以继续使用模板提供的命令，例如\citing{example2024}。
+
+\section{讨论}
+
+这里分析结果的合理性、局限性和可能的改进方向。
+
+\chapter{总结}
+
+这里总结课程报告的主要工作和结论，并说明后续可以继续完善的方向。
+
+% Uncomment to list all entries in reference.bib.
+% \nocite{*}
+
+\coursebibliography{reference}
+
+\end{document}
