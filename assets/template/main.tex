@@ -9,9 +9,10 @@
 \advisor{指导老师姓名}{Advisor Name}
 \department{学院名称}{Department Name}
 \major{专业名称}{Major Name}
+\completiondate{\today}
 
 % 如果需要显示学校logo，请取消下面一行的注释
-% 并将logo文件放在 pic/logo.pdf
+\reportlogo{pic/logo.pdf}
 % \showlogo
 
 \begin{document}
@@ -21,6 +22,7 @@
 \thesistableofcontents
 
 \chapter{引言}
+\label{chap:introduction}
 
 \section{研究背景}
 
@@ -28,9 +30,10 @@
 
 \section{报告结构}
 
-这里简要说明全文安排。本文后续章节演示公式、图表、交叉引用和参考文献的基本写法。
+本章即\autoref{chap:introduction}，用于说明报告背景和结构。\autoref{chap:method}演示公式、图表、代码和参考文献的基本写法，所有编号均可点击跳转。
 
 \chapter{方法与实现}
+\label{chap:method}
 
 \section{基本方法}
 
@@ -39,20 +42,20 @@
   \label{eq:objective}
   J(\bm{x})=\sum_{i=1}^{n}(y_i-\bm{w}^{\mathrm{T}}\bm{x}_i)^2+\lambda\lVert\bm{w}\rVert_2^2 .
 \end{equation}
-式\ref{eq:objective}展示了一个带正则项的最小二乘目标。
+\autoref{eq:objective}展示了一个带正则项的最小二乘目标。
 
-\section{图表示例}
+\section{图表与代码示例}
 
-图\ref{fig:example}和表\ref{tab:example}展示了报告中常用的浮动体写法。
+\autoref{fig:example}、\autoref{tab:example}和\autoref{lst:example}展示了报告中常用的浮动体与代码写法。
 
-\begin{figure}[h]
+\begin{figure}[htbp]
   \centering
   \fbox{\parbox{0.6\textwidth}{\centering\vspace{2cm}这里是图片占位符\vspace{2cm}}}
   \caption{示例图片}
   \label{fig:example}
 \end{figure}
 
-\begin{table}[h]
+\begin{table}[htbp]
   \caption{实验参数示例}
   \label{tab:example}
   \begin{tabular}{ccc}
@@ -66,11 +69,20 @@
   \end{tabular}
 \end{table}
 
+\begin{listing}[htbp]
+  \begin{Verbatim}[frame=single,fontsize=\small]
+def reconstruct(data, regularization):
+    return solve(data, regularization)
+  \end{Verbatim}
+  \caption{算法实现示例}
+  \label{lst:example}
+\end{listing}
+
 \chapter{结果与分析}
 
 \section{实验结果}
 
-这里描述实验设置、数据来源和主要结果。引用文献时可以继续使用模板提供的命令，例如\citing{example2024}。
+这里描述实验设置、数据来源和主要结果。文献引用使用单向可点击链接，例如\citing{example2024}；点击编号可跳转至对应参考文献条目。
 
 \section{讨论}
 

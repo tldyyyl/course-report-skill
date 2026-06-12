@@ -1,4 +1,4 @@
-# 需要跟踪的文件
+# LaTeX build artifacts
 *.aux
 *.bbl
 *.bcf
@@ -23,6 +23,21 @@
 *.dvi
 *.xdv
 main.pdf
+
+# Generated reports and temporary renders
+output/
+tmp/
+docs/superpowers/
+
+# Local reference templates are not runtime dependencies
+示例大学学位论文LaTeX模板/
+示例大学学位论文LaTeX模板.zip
+assets/template/pic/logo.pdf
+assets/template/pic/logo.png
+assets/template/pic/logo.jpg
+assets/template/pic/logo.jpeg
+
+# Python and operating-system artifacts
 __pycache__/
 *.pyc
 .DS_Store

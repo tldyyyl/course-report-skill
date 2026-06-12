@@ -37,26 +37,38 @@
 \RequirePackage{xeCJK}
 \RequirePackage{ifplatform}
 
+\newcommand{\setcoursefonts}[3]{
+  \IfFontExistsTF{#1}
+    {\setCJKmainfont[AutoFakeBold=true]{#1}}
+    {\setCJKmainfont[AutoFakeBold=true]{FandolSong-Regular}}
+  \IfFontExistsTF{#2}
+    {
+      \newCJKfontfamily{\heiti}{#2}
+      \newfontfamily{\heiti@letter}{#2}
+    }
+    {
+      \newCJKfontfamily{\heiti}{FandolHei-Regular}
+      \newfontfamily{\heiti@letter}{TeX Gyre Heros}
+    }
+  \IfFontExistsTF{#3}
+    {\setallmainfonts{#3}}
+    {\setallmainfonts{TeX Gyre Termes}}
+}
+
 \ifwindows
-  \setCJKmainfont[AutoFakeBold=true]{SimSun}
-  \newCJKfontfamily{\heiti}{SimHei}
-  \newfontfamily{\heiti@letter}{SimHei}
-  \setallmainfonts{Times New Roman}
+  \setcoursefonts{SimSun}{SimHei}{Times New Roman}
+  \IfFontExistsTF{FangSong}
+    {\setCJKmonofont{FangSong}}
+    {\setCJKmonofont{FandolFang-Regular}}
 \else
 \ifmacosx
-  \setCJKmainfont[AutoFakeBold=true]{Songti SC}
-  \newCJKfontfamily{\heiti}{STHeiti}
-  \newfontfamily{\heiti@letter}{STHeiti}
-  \setallmainfonts{Times New Roman}
+  \setcoursefonts{Songti SC}{Heiti SC}{Times New Roman}
+  \IfFontExistsTF{STFangsong}
+    {\setCJKmonofont{STFangsong}}
+    {\setCJKmonofont{FandolFang-Regular}}
 \else
-  \setCJKmainfont[AutoFakeBold=true]{fzsong.ttf}
-  \newCJKfontfamily{\heiti}{fzhei.ttf}
-  \newfontfamily{\heiti@letter}{fzhei.ttf}
-  \setallmainfonts[
-    BoldFont=timesbd.ttf,
-    ItalicFont=timesi.ttf,
-    BoldItalicFont=timesbi.ttf,
-  ]{times.ttf}
+  \setcoursefonts{FandolSong-Regular}{FandolHei-Regular}{TeX Gyre Termes}
+  \setCJKmonofont{FandolFang-Regular}
 \fi
 \fi
 
@@ -76,8 +88,14 @@
   colorlinks=true,
   citecolor=black,
   linkcolor=black,
-  urlcolor=black
+  urlcolor=black,
+  pdfborder={0 0 0}
 }
+\def\chapterautorefname{}
+\def\sectionautorefname{第}
+\def\equationautorefname{式}
+\def\figureautorefname{图}
+\def\tableautorefname{表}
 
 \RequirePackage{indentfirst}
 \RequirePackage{float}
@@ -93,6 +111,14 @@
 
 \RequirePackage{etoolbox}
 \RequirePackage{newfloat}
+\DeclareFloatingEnvironment[
+  fileext=lol,
+  name=代码,
+  listname=代码目录,
+  placement=htbp
+]{listing}
+\renewcommand{\thelisting}{\arabic{chapter}-\arabic{listing}}
+\def\listingautorefname{代码}
 \RequirePackage[resetlabels]{multibib}
 \RequirePackage[nottoc]{tocbibind}
 \RequirePackage{pdfpages}
@@ -333,6 +359,10 @@
 
 \newif\if@showlogo
 \@showlogofalse
+\newcommand{\reportlogopath}{pic/logo.pdf}
+\newcommand{\reportlogo}[1]{
+  \renewcommand{\reportlogopath}{#1}
+}
 
 \renewcommand{\title}[2]{
   \renewcommand{\zh@thetitle}{#1}
@@ -342,11 +372,6 @@
 \renewcommand{\author}[2]{
   \renewcommand{\zh@theauthor}{#1}
   \renewcommand{\en@theauthor}{#2}
-}
-
-\renewcommand{\date}[2]{
-  \renewcommand{\zh@thedate}{#1}
-  \renewcommand{\en@thedate}{#2}
 }
 
 \newcommand{\major}[2]{
@@ -571,7 +596,7 @@
   \fontsize{16pt}{16pt}\selectfont
     \textnormal{\MakeUppercase{\englishbooktitle}} \\[48bp]
   \if@showlogo
-    \includegraphics[width=180bp]{logo.pdf} \\[40bp]
+    \includegraphics[width=180bp]{\reportlogopath} \\[40bp]
   \fi
   \begin{tabular}{>{\bfseries\fontsize{16pt}{16pt}\selectfont}l
       >{\centering\arraybackslash\bfseries\fontsize{16pt}{16pt}\selectfont}
@@ -587,6 +612,8 @@
     指导老师 & \zh@theadvisor & \\
     \cline{2-2}
     学院/专业 & \zh@thedepartment /\ \zh@themajor & \\
+    \cline{2-2}
+    完成日期 & \zh@thecompletiondate & \\
     \cline{2-2}
   \end{tabular}
 \end{center}
@@ -627,8 +654,7 @@
 \renewcommand{\chaptermark}[1]{\markboth{\thechapter\hspace{5.25pt}#1}{}}
 
 \newcommand{\thesiscontent}{
-  \newpage
-  \clearpage{\thispagestyle{empty}\cleardoublepage}
+  \clearpage
   \addtocontents{toc}{\protect\setcounter{tocdepth}{2}}
   \standardheader
   \pagenumbering{arabic}

@@ -1,0 +1,70 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  python-tests:
+    name: Python ${{ matrix.python-version }}
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.8", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Run unit tests
+        run: python -m unittest discover -v
+
+  latex-smoke-test:
+    name: XeLaTeX smoke test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install TeX Live
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk \
+            texlive-bibtex-extra \
+            texlive-fonts-recommended \
+            texlive-lang-chinese \
+            texlive-latex-extra \
+            texlive-science \
+            texlive-xetex
+
+      - name: Generate and compile example report
+        run: |
+          python scripts/create_report.py \
+            --output "$RUNNER_TEMP/course-report" \
+            --school "示例大学" \
+            --school-en "Example University" \
+            --course "读书报告" \
+            --title "基于低秩-稀疏矩阵分解的动态 MRI 图像重建方法研究" \
+            --author "测试学生" \
+            --student-id "202600000001" \
+            --advisor "测试教师" \
+            --department "人工智能学院" \
+            --major "计算机科学与技术" \
+            --date "2026年6月12日" \
+            --compiler xelatex
+          test -s "$RUNNER_TEMP/course-report/main.pdf"
+
+      - name: Upload compiled PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: example-course-report
+          path: ${{ runner.temp }}/course-report/main.pdf
