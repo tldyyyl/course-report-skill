@@ -431,6 +431,17 @@ class CreateReportTests(unittest.TestCase):
         self.assertNotIn(r"\cleardoublepage", transition)
         self.assertNotIn(r"\newpage", transition)
 
+    def test_course_mode_uses_compact_chapter_title_spacing(self) -> None:
+        class_content = (
+            create_report.template_root() / "course-report.cls"
+        ).read_text(encoding="utf-8")
+
+        self.assertIn(
+            r"\if@course" "\n"
+            r"  \titlespacing{\chapter}{0pt}{-14pt}{12pt}",
+            class_content,
+        )
+
     def test_fandol_fallback_uses_tex_live_font_files(self) -> None:
         class_content = (
             create_report.template_root() / "course-report.cls"

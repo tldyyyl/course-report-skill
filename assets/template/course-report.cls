@@ -441,7 +441,7 @@
 \ProcessOptions\relax
 
 \if@course
-  \titlespacing{\chapter}{0pt}{18pt}{12pt}
+  \titlespacing{\chapter}{0pt}{-14pt}{12pt}
   \renewcommand\chapter{%
     \if@noskipsec\leavevmode\fi
     \par
