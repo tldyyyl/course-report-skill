@@ -1,6 +1,12 @@
 %
 %  Copyright 2016-2026 Wen Wang <wangwen1192@outlook.com>
 %
+%  Distributed as course-report.bst for the Course Report Skill.
+%  The bibliography logic is derived without functional changes from
+%  thesis-uestc.bst. The original source, support disclaimer, and
+%  modification summary are documented in NOTICE.md, which must accompany
+%  this file.
+%
 %  This work may be distributed and/or modified under the
 %  conditions of the LaTeX Project Public License, either version 1.3
 %  of this license or (at your option) any later version.
@@ -11,9 +17,12 @@
 %
 %  This work has the LPPL maintenance status `maintained'.
 %
-%  The Current Maintainer of this work is Wen Wang <wangwen1192@outlook.com>.
+%  The Current Maintainer of the original work is Wen Wang
+%  <wangwen1192@outlook.com>.
 %
-%  This work consists of the files thesis-uestc.cls, thesis-uestc.bst.
+%  The maintainer of this derived distribution is tldyyyl
+%  <https://github.com/tldyyyl>. The original maintainer does not provide
+%  support for this derived distribution.
 %
 
 

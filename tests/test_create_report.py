@@ -66,6 +66,22 @@ class CreateReportTests(unittest.TestCase):
         )
         self.assertEqual(expected, actual)
 
+    def test_copy_template_excludes_local_school_logo_assets(self) -> None:
+        source = Path(self.temp_dir.name) / "template"
+        picture_dir = source / "pic"
+        picture_dir.mkdir(parents=True)
+        (source / "main.tex").write_text("template", encoding="utf-8")
+        (picture_dir / "figure.png").write_bytes(b"figure")
+        for suffix in (".pdf", ".png", ".jpg", ".jpeg"):
+            (picture_dir / f"logo{suffix}").write_bytes(b"local logo")
+
+        create_report.copy_template(source, self.output_dir, force=False)
+
+        self.assertTrue((self.output_dir / "main.tex").is_file())
+        self.assertTrue((self.output_dir / "pic" / "figure.png").is_file())
+        for suffix in (".pdf", ".png", ".jpg", ".jpeg"):
+            self.assertFalse((self.output_dir / "pic" / f"logo{suffix}").exists())
+
     def test_copy_template_refuses_existing_files_without_force(self) -> None:
         self.output_dir.mkdir(parents=True)
         existing = self.output_dir / "main.tex"
@@ -431,16 +447,37 @@ class CreateReportTests(unittest.TestCase):
         self.assertNotIn(r"\cleardoublepage", transition)
         self.assertNotIn(r"\newpage", transition)
 
-    def test_course_mode_uses_compact_chapter_title_spacing(self) -> None:
+    def test_course_mode_uses_nonnegative_chapter_title_spacing(self) -> None:
         class_content = (
             create_report.template_root() / "course-report.cls"
         ).read_text(encoding="utf-8")
 
         self.assertIn(
             r"\if@course" "\n"
-            r"  \titlespacing{\chapter}{0pt}{-14pt}{12pt}",
+            r"  \titlespacing{\chapter}{0pt}{12pt}{12pt}",
             class_content,
         )
+
+    def test_template_includes_lppl_derived_work_notice(self) -> None:
+        template = create_report.template_root()
+        notice = template / "NOTICE.md"
+
+        self.assertTrue(notice.is_file())
+        notice_content = notice.read_text(encoding="utf-8")
+        self.assertIn("https://github.com/bdebye/thesisuestc", notice_content)
+        self.assertIn("do not provide support", notice_content)
+        for filename in ("course-report.cls", "course-report.bst"):
+            content = (template / filename).read_text(encoding="utf-8")
+            self.assertIn("NOTICE.md", content)
+
+    def test_ci_renders_pdf_pages_for_visual_review(self) -> None:
+        workflow = (REPO_ROOT / ".github" / "workflows" / "ci.yml").read_text(
+            encoding="utf-8"
+        )
+
+        self.assertIn("poppler-utils", workflow)
+        self.assertIn("pdftoppm -png", workflow)
+        self.assertIn("rendered-pages", workflow)
 
     def test_fandol_fallback_uses_tex_live_font_files(self) -> None:
         class_content = (

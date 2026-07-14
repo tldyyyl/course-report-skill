@@ -1,6 +1,14 @@
 %
 % Course Report LaTeX Class
-% Based on thesis-uestc.cls, generalized for any school
+%
+% Derived from thesis-uestc.cls by Wen Wang <wangwen1192@outlook.com>.
+% Original work Copyright 2016-2026 Wen Wang.
+% Modified in 2026 by tldyyyl for generic course reports.
+% The maintainer of this derived distribution is tldyyyl
+% <https://github.com/tldyyyl>. The original maintainer does not provide
+% support for this derived distribution.
+% The original source, support disclaimer, and modification summary are
+% documented in NOTICE.md, which must accompany this file.
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -441,7 +449,7 @@
 \ProcessOptions\relax
 
 \if@course
-  \titlespacing{\chapter}{0pt}{-14pt}{12pt}
+  \titlespacing{\chapter}{0pt}{12pt}{12pt}
   \renewcommand\chapter{%
     \if@noskipsec\leavevmode\fi
     \par

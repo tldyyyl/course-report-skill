@@ -14,9 +14,9 @@ jobs:
         python-version: ["3.8", "3.12"]
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python-version }}
 
@@ -28,9 +28,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
@@ -39,6 +39,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             latexmk \
+            poppler-utils \
             texlive-bibtex-extra \
             texlive-fonts-recommended \
             texlive-lang-chinese \
@@ -63,8 +64,30 @@ jobs:
             --compiler xelatex
           test -s "$RUNNER_TEMP/course-report/main.pdf"
 
-      - name: Upload compiled PDF
-        uses: actions/upload-artifact@v4
+      - name: Render and inspect PDF pages
+        run: |
+          report_dir="$RUNNER_TEMP/course-report"
+          render_dir="$report_dir/rendered-pages"
+          mkdir -p "$render_dir"
+          pdftoppm -png -r 120 \
+            "$report_dir/main.pdf" \
+            "$render_dir/page"
+
+          page_count="$(pdfinfo "$report_dir/main.pdf" | awk '/^Pages:/ {print $2}')"
+          test "$page_count" -ge 3
+          test "$(find "$render_dir" -name 'page-*.png' -type f | wc -l)" -eq "$page_count"
+
+          for page in $(seq 1 "$page_count"); do
+            pdftotext -f "$page" -l "$page" \
+              "$report_dir/main.pdf" \
+              "$RUNNER_TEMP/page-$page.txt"
+            grep -q '[^[:space:]]' "$RUNNER_TEMP/page-$page.txt"
+          done
+
+      - name: Upload compiled PDF and rendered pages
+        uses: actions/upload-artifact@v7
         with:
           name: example-course-report
-          path: ${{ runner.temp }}/course-report/main.pdf
+          path: |
+            ${{ runner.temp }}/course-report/main.pdf
+            ${{ runner.temp }}/course-report/rendered-pages/page-*.png

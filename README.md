@@ -81,6 +81,7 @@ your-report/
 ├── course-report.bst      # GB/T 7714 参考文献样式
 ├── latexmkrc              # latexmk 编译配置
 ├── reference.bib          # 示例参考文献
+├── NOTICE.md              # 上游来源、许可证与修改说明
 └── pic/                   # 图片资源目录
     └── logo.<ext>         # （可选）学校 Logo
 ```
@@ -198,8 +199,16 @@ course-report-skill/
 │       ├── course-report.bst    # 参考文献样式
 │       ├── latexmkrc            # 编译配置
 │       ├── reference.bib        # 示例参考文献
+│       ├── NOTICE.md             # 上游来源、许可证与修改说明
 │       └── pic/                 # 图片目录
 ```
+
+## 许可证与来源
+
+本项目按 LPPL 1.3c 发布。`course-report.cls` 修改自 Wen Wang 维护的
+`thesis-uestc.cls`，`course-report.bst` 沿用其 `thesis-uestc.bst` 文献格式实现。
+原始项目、支持边界和修改摘要见生成模板中随附的 `NOTICE.md`。示例大学学位
+论文模板仅作为人工设计参考，其 GPL 源码未复制到本项目，生成报告也不依赖该模板。
 
 ## 测试
 
@@ -207,7 +216,9 @@ course-report-skill/
 python -m unittest discover -v
 ```
 
-测试覆盖模板生成、字段转义、Logo、编译器回退和 XeLaTeX 冒烟编译；缺少 TeX 工具时编译测试会明确跳过。
+测试覆盖模板生成、字段转义、Logo、许可证声明、编译器回退和 XeLaTeX 冒烟编译；
+缺少 TeX 工具时编译测试会明确跳过。CI 还会逐页渲染示例 PDF、拒绝空白页，并上传
+PDF 与页面 PNG 供视觉检查。
 
 ## Star History
 

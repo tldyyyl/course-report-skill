@@ -23,6 +23,9 @@ LATEX_ESCAPES = {
     "~": r"\textasciitilde{}",
 }
 SUPPORTED_LOGO_SUFFIXES = {".pdf", ".png", ".jpg", ".jpeg"}
+LOCAL_LOGO_FILENAMES = {
+    f"logo{suffix}" for suffix in SUPPORTED_LOGO_SUFFIXES
+}
 KNOWN_ENGLISH_SCHOOL_NAMES = {
     "示例大学": "Example University",
 }
@@ -37,7 +40,15 @@ def template_root() -> Path:
 
 
 def iter_template_files(root: Path) -> list[Path]:
-    return sorted(path for path in root.rglob("*") if path.is_file())
+    return sorted(
+        path
+        for path in root.rglob("*")
+        if path.is_file()
+        and not (
+            path.relative_to(root).parent == Path("pic")
+            and path.name.lower() in LOCAL_LOGO_FILENAMES
+        )
+    )
 
 
 def relative_template_files(root: Path) -> list[Path]:

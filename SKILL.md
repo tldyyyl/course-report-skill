@@ -66,7 +66,8 @@ python <skill-root>/scripts/create_report.py
 ```
 
 - Default target is the current working directory.
-- The script copies `main.tex`, `course-report.cls`, `course-report.bst`, `latexmkrc`, `reference.bib`, and `pic/` directory.
+- The script copies `main.tex`, `course-report.cls`, `course-report.bst`, `latexmkrc`, `reference.bib`, `NOTICE.md`, and the `pic/` directory.
+- Local `pic/logo.*` files bundled beside the template are excluded. A Logo is copied only when the user explicitly supplies `--logo`.
 - It refuses to overwrite existing files by default. If the user explicitly wants replacement, run with `--force`.
 - It compiles automatically and creates `main.pdf`. The default `auto` mode falls back to direct XeLaTeX/BibTeX compilation when `latexmk` is unavailable or fails.
 - Use `--output <dir>` for a different target directory.
@@ -134,6 +135,7 @@ Prefer a PDF vector Logo for print output. Raster formats remain supported for c
 - Keep the bundled GB/T 7714-compatible BibTeX workflow lightweight; do not import an external thesis bibliography stack.
 - Never make generated reports depend on a local thesis-template directory.
 - Do not copy GPL thesis-template source into this skill. Reference layout ideas only and preserve this project's existing license boundaries.
+- Preserve `NOTICE.md` with generated source distributions; it records the LPPL upstream source, support boundary, and modification summary.
 
 ## Chapter Behavior
 
@@ -157,6 +159,7 @@ The template includes:
 - `course-report.bst` - Bibliography style file (GB/T 7714 compatible)
 - `latexmkrc` - Build configuration for latexmk
 - `reference.bib` - Example bibliography file
+- `NOTICE.md` - Upstream source, LPPL, support, and modification notice
 - `pic/` - Directory for images (logo, figures)
 
 ## Compilation Requirements
