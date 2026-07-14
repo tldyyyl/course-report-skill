@@ -144,19 +144,22 @@ class CreateReportTests(unittest.TestCase):
             with self.subTest(line=line):
                 self.assertIn(line, content)
 
-    def test_customize_template_infers_known_english_school_name(self) -> None:
+    def test_customize_template_uses_generic_english_school_placeholder(self) -> None:
         self.copy_template()
 
         create_report.customize_template(
             self.output_dir,
-            self.customization_args(school="示例大学"),
+            self.customization_args(school="测试大学"),
         )
 
         content = (self.output_dir / "main.tex").read_text(encoding="utf-8")
         self.assertIn(
-            r"\school{示例大学}{Example University}",
+            r"\school{测试大学}{University Name}",
             content,
         )
+
+    def test_script_does_not_define_school_specific_name_mappings(self) -> None:
+        self.assertFalse(hasattr(create_report, "KNOWN_ENGLISH_SCHOOL_NAMES"))
 
     def test_parse_args_accepts_english_school_name(self) -> None:
         with mock.patch(

@@ -13,7 +13,7 @@ When invoked, gather the missing information before creating the report. Reuse v
 
 Ask for the following information using the user-input mechanism available in the current agent environment. Keep questions concise and batch clearly related cover fields when that reduces unnecessary turns:
 
-1. **学校名称** - "请输入你的学校/大学名称"。Agent 同时确定学校官方英文名称，不使用机器直译
+1. **学校名称** - "请输入你的学校/大学名称"。Agent 从学校官网等官方来源核对学校英文名称，不使用机器直译，并通过 `--school-en` 显式传入
 2. **课程名称** - "请输入课程名称"
 3. **报告标题** - "请输入课程报告的标题"
 4. **学生姓名** - "请输入你的姓名"
@@ -68,6 +68,7 @@ python <skill-root>/scripts/create_report.py
 - Default target is the current working directory.
 - The script copies `main.tex`, `course-report.cls`, `course-report.bst`, `latexmkrc`, `reference.bib`, `NOTICE.md`, and the `pic/` directory.
 - Local `pic/logo.*` files bundled beside the template are excluded. A Logo is copied only when the user explicitly supplies `--logo`.
+- The script does not maintain school-specific name mappings. Resolve the official English name externally and pass `--school-en` explicitly.
 - It refuses to overwrite existing files by default. If the user explicitly wants replacement, run with `--force`.
 - It compiles automatically and creates `main.pdf`. The default `auto` mode falls back to direct XeLaTeX/BibTeX compilation when `latexmk` is unavailable or fails.
 - Use `--output <dir>` for a different target directory.

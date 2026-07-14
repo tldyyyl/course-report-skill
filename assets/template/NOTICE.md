@@ -40,6 +40,6 @@ derived files.
 
 ## Other Reference Material
 
-The local Example University thesis template was used
-only as a manual design reference. Its GPL-licensed source is not copied into
-this distribution, and generated reports have no runtime dependency on it.
+A locally supplied thesis template was used only as a manual design reference.
+Its GPL-licensed source is not copied into this distribution, and generated
+reports have no runtime dependency on it.

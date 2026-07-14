@@ -51,7 +51,7 @@ python scripts/create_report.py \
 | 参数 | 说明 | 默认值 |
 |------|------|--------|
 | `--school` | 学校/大学名称 | 学校名称 |
-| `--school-en` | 学校官方英文名称 | 已知学校自动匹配，否则 University Name |
+| `--school-en` | 学校官方英文名称 | University Name（未传入时） |
 | `--course` | 课程名称 | 课程名称 |
 | `--title` | 报告标题 | 课程报告题目 |
 | `--author` | 学生姓名 | 学生姓名 |
@@ -68,7 +68,9 @@ python scripts/create_report.py \
 
 命令行封面字段按普通文本处理，脚本会自动转义 `&`、`_`、`%` 等 LaTeX 特殊字符。需要使用 LaTeX 命令时，可在生成后直接编辑 `main.tex`。
 
-使用技能时，Agent 应根据学校中文名称填写官方英文校名并传入 `--school-en`，不使用机器直译。脚本仅为少量已知学校提供确定性回退，例如“示例大学”对应 `Example University`。
+使用技能时，Agent 应从学校官网等官方来源核对英文校名，并显式传入 `--school-en`，
+不要根据中文名称自行机器翻译。脚本不内置或猜测特定学校的中英文对应关系；未传入
+该参数时保留通用的 `University Name` 占位符。
 
 ## 模板结构
 
@@ -207,8 +209,8 @@ course-report-skill/
 
 本项目按 LPPL 1.3c 发布。`course-report.cls` 修改自 Wen Wang 维护的
 `thesis-uestc.cls`，`course-report.bst` 沿用其 `thesis-uestc.bst` 文献格式实现。
-原始项目、支持边界和修改摘要见生成模板中随附的 `NOTICE.md`。示例大学学位
-论文模板仅作为人工设计参考，其 GPL 源码未复制到本项目，生成报告也不依赖该模板。
+原始项目、支持边界和修改摘要见生成模板中随附的 `NOTICE.md`。一份本地的 GPL
+学位论文模板仅作为人工设计参考，其源码未复制到本项目，生成报告也不依赖该模板。
 
 ## 测试
 

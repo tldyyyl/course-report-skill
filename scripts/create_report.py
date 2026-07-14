@@ -26,9 +26,6 @@ SUPPORTED_LOGO_SUFFIXES = {".pdf", ".png", ".jpg", ".jpeg"}
 LOCAL_LOGO_FILENAMES = {
     f"logo{suffix}" for suffix in SUPPORTED_LOGO_SUFFIXES
 }
-KNOWN_ENGLISH_SCHOOL_NAMES = {
-    "示例大学": "Example University",
-}
 
 
 def skill_root() -> Path:
@@ -145,8 +142,7 @@ def customize_template(dst_root: Path, args: argparse.Namespace) -> None:
     if school or school_en:
         chinese_name = escape_latex_text(school or "学校名称")
         english_name = escape_latex_text(
-            school_en
-            or KNOWN_ENGLISH_SCHOOL_NAMES.get(school, "University Name")
+            school_en or "University Name"
         )
         content = replace_required(
             content,
